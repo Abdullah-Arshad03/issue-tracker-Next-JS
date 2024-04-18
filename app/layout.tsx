@@ -1,10 +1,14 @@
 import "@radix-ui/themes/styles.css";
 import "./globals.css";
+import './themeConfig.css'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
-import { Theme } from "@radix-ui/themes";
-const inter = Inter({ subsets: ["latin"] });
+import { Theme, ThemePanel } from "@radix-ui/themes";
+const inter = Inter(
+  { subsets: ["latin"] ,
+   variable: '--font-inter'
+  });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,9 +22,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={inter.variable}>
         {/* theme following component wrap the whole application so that all the radix ui can be implemented on our whole application. */} 
-        <Theme> 
+        <Theme accentColor="iris" radius="large">
           <NavBar />
           <main className="p-5">{children}</main>
         </Theme>

@@ -1,0 +1,5 @@
+/* it is the custom css file created to overwrite the radix ui theme */
+
+.radix-themes {
+    --default-font-family: var(--font-inter);
+  }
