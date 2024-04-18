@@ -19,9 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Theme>
+        {/* theme following component wrap the whole application so that all the radix ui can be implemented on our whole application. */} 
+        <Theme> 
           <NavBar />
-          <main>{children}</main>
+          <main className="p-5">{children}</main>
         </Theme>
       </body>
     </html>
