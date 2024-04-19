@@ -25,13 +25,13 @@ const {register , control , handleSubmit } =    useForm<IssuesForm>()
 
   return (<>
   <form className='max-w-xl space-y-3' onSubmit={handleSubmit((data)=> {
-    axios.post('http://localhost:3000/api/users', data).then((result)=>{console.log('form submitted : ', result )}).catch((error)=>{console.log(error)})
+    axios.post('http://localhost:3000/api/issues/', data).then((result)=>{console.log('form submitted : ', result )}).catch((error)=>{console.log(error)})
   })}>
     <TextField.Root placeholder='Enter the Issue' {...register('title')} ></TextField.Root>
 
     {/* we cannot use directly form hook on the SimpleMdeReact so we use Controller component from the react hook form */}
 <Controller
-name='descriptionn'
+name='description'
 control = {control}
 render={({field})=> <SimpleMdeReact {...field}/>
 
