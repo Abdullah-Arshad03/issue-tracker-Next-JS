@@ -6,6 +6,8 @@ import "easymde/dist/easymde.min.css";
 import { useState, useCallback } from 'react';
 import { useForm , Controller } from 'react-hook-form';
 import axios from 'axios';
+import Router, { useRouter } from 'next/navigation';
+import { Callout } from '@radix-ui/themes';
 
 interface IssuesForm {
   title : string , 
@@ -14,18 +16,30 @@ interface IssuesForm {
 
 const NewIssuePage = () => {
 
-  // const [value, setValue] = useState("");
-  // const onChange = useCallback((value: string) => {
-  //   setValue(value);
-  // }, []);
-
+  const router = useRouter()
+  const [error, setError] = useState('')
 
 const {register , control , handleSubmit } =    useForm<IssuesForm>()
 
 
   return (<>
-  <form className='max-w-xl space-y-3' onSubmit={handleSubmit((data)=> {
-    axios.post('http://localhost:3000/api/issues/', data).then((result)=>{console.log('form submitted : ', result )}).catch((error)=>{console.log(error)})
+
+
+  {error && <Callout.Root className='max-w-xl mb-4' color='red' >
+    <Callout.Text>{error}</Callout.Text>
+    </Callout.Root>
+  }
+  <form className='max-w-xl space-y-3' onSubmit={handleSubmit( async(data)=> {
+
+  try {
+    const res =  await axios.post('http://localhost:3000/api/issues/', data)
+    console.log('this is the response ', res)
+    router.push('/issues')
+  } catch (error) {
+     setError('An Unexpected Error Occured !')
+  }
+
+
   })}>
     <TextField.Root placeholder='Enter the Issue' {...register('title')} ></TextField.Root>
 
