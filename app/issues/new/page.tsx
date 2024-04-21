@@ -12,6 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { createIssueSchema } from "../../validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
+import Loader from "@/app/components/Loader";
 
 // if we add new key in the following interface, so we have to update this in the zod schema to, so in order to save myself from this hurdle, i have to use the infer property from the z i-e zod object
 
@@ -19,7 +20,9 @@ type IssuesForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
   const router = useRouter();
+
   const [error, setError] = useState("");
+  const [isSubmitting , setIsSubmitting] = useState(false)
 
   const {
     register,
@@ -39,13 +42,17 @@ const NewIssuePage = () => {
         className="max-w-xl space-y-3"
         onSubmit={handleSubmit(async (data) => {
           try {
+            setIsSubmitting(true)
             const res = await axios.post(
               "http://localhost:3000/api/issues/",
               data
             );
             console.log("this is the response ", res);
             router.push("/issues");
+
           } catch (error) {
+            setIsSubmitting(false)
+
             console.log(errors);
             setError("An Unexpected Error Occured !");
           }
@@ -74,7 +81,7 @@ const NewIssuePage = () => {
           </Text>
        
 
-        <Button>Submit New Issue</Button>
+        <Button disabled = {isSubmitting}>Submit New Issue { isSubmitting &&  <Loader></Loader>}</Button>
       </form>
     </>
   );
