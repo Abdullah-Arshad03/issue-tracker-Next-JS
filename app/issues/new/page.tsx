@@ -1,7 +1,6 @@
 "use client";
 import { Button, TextField, Text } from "@radix-ui/themes";
 import React from "react";
-import SimpleMdeReact from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { useState, useCallback } from "react";
 import { useForm, Controller } from "react-hook-form";
@@ -13,7 +12,15 @@ import { createIssueSchema } from "../../validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Loader from "@/app/components/Loader";
+import dynamic from "next/dynamic";
 
+// it is the lazy loading, means the simpleReact will only load when it should be requied on the screen,
+// ssr : flase means the server side rendering of this component is off, it will not be included in the initial bundle when rendering the component,
+// it is the part of the client side totally
+const SimpleMdeReact = dynamic(
+  ()=> import('react-simplemde-editor') ,
+  {ssr : false} 
+)
 // if we add new key in the following interface, so we have to update this in the zod schema to, so in order to save myself from this hurdle, i have to use the infer property from the z i-e zod object
 
 type IssuesForm = z.infer<typeof createIssueSchema>;
