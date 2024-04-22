@@ -4,12 +4,13 @@ import Link from "next/link";
 import prisma from "@/prisma/client";
 import { Value } from "@radix-ui/themes/src/components/data-list.jsx";
 import IssueStatusBadge from "../components/IssueStatusBadge";
-import delay from "delay";
 import IssueActions from "./IssueActions";
 import StyledLink from "../components/StyledLink";
+
+
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
-  await delay(2000)
+ 
   console.log("these are all issues  : ", issues);
 
   return (
