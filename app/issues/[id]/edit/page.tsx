@@ -9,9 +9,7 @@ const IssueForm = dynamic(
     { ssr : false,
         loading : () => <EditPageSkeleton/>
      }
-
 )
-
 interface Props {
    params : {
     id : string

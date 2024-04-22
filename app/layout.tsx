@@ -4,7 +4,8 @@ import './themeConfig.css'
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import NavBar from "./NavBar";
-import { Theme, ThemePanel } from "@radix-ui/themes";
+import { Theme, ThemePanel ,Container } from "@radix-ui/themes";
+
 const inter = Inter(
   { subsets: ["latin"] ,
    variable: '--font-inter'
@@ -26,7 +27,9 @@ export default function RootLayout({
         {/* theme following component wrap the whole application so that all the radix ui can be implemented on our whole application. */} 
         <Theme accentColor="iris" radius="large">
           <NavBar />
+          <Container>
           <main className="p-5">{children}</main>
+          </Container>
         </Theme>
       </body>
     </html>
