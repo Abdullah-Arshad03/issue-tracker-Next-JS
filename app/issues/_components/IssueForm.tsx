@@ -12,21 +12,26 @@ import { createIssueSchema } from "../../validationSchemas";
 import { z } from "zod";
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Loader from "@/app/components/Loader";
-import dynamic from "next/dynamic";
 import { Issue } from "@prisma/client";
+// import dynamic from "next/dynamic";
+import SimpleMdeReact from 'react-simplemde-editor'
 
 // it is the lazy loading, means the simpleReact will only load when it should be requied on the screen,
 // ssr : flase means the server side rendering of this component is off, it will not be included in the initial bundle when rendering the component,
 // it is the part of the client side totally
-const SimpleMdeReact = dynamic(
-  ()=> import('react-simplemde-editor') ,
-  {ssr : false} 
-)
-// if we add new key in the following interface, so we have to update this in the zod schema to, so in order to save myself from this hurdle, i have to use the infer property from the z i-e zod object
+// const SimpleMdeReact = dynamic(
+//   ()=> import('react-simplemde-editor') ,  // comment this lazy loading after loading whole component lazy
+//   {ssr : false} 
+// )
+// // if we add new key in the following interface, so we have to update this in the zod schema to, so in order to save myself from this hurdle, i have to use the infer property from the z i-e zod object
 
 type IssuesFormData = z.infer<typeof createIssueSchema>;
 
-const IssueForm = ({issue} : {issue : Issue}) => {
+interface Props {
+    issue : Issue | null 
+}
+
+const IssueForm = ({issue} : Props) => {
   const router = useRouter();
 
   const [error, setError] = useState("");
@@ -46,7 +51,7 @@ const onSubmitHandler = handleSubmit(async (data) => {
     if(issue){
   const res = await axios.put(`http://localhost:3000/api/issues/${issue.id}` , data)
   console.log("Issue is Updated : ", res);
-  
+
     }
     else{
     const res = await axios.post(
@@ -57,6 +62,7 @@ const onSubmitHandler = handleSubmit(async (data) => {
 
 }
     router.push("/issues");
+    router.refresh()
 
   } catch (error) {
     setIsSubmitting(false)
