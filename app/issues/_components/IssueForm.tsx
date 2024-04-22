@@ -43,11 +43,19 @@ const IssueForm = ({issue} : {issue : Issue}) => {
 const onSubmitHandler = handleSubmit(async (data) => {
   try {
     setIsSubmitting(true)
+    if(issue){
+  const res = await axios.put(`http://localhost:3000/api/issues/${issue.id}` , data)
+  console.log("Issue is Updated : ", res);
+  
+    }
+    else{
     const res = await axios.post(
       "http://localhost:3000/api/issues/",
       data
     );
-    console.log("this is the response ", res);
+    console.log("New Issue Posted : ", res);
+
+}
     router.push("/issues");
 
   } catch (error) {
@@ -96,7 +104,7 @@ const onSubmitHandler = handleSubmit(async (data) => {
           </Text>
        
 
-        <Button disabled = {isSubmitting}>Submit New Issue { isSubmitting &&  <Loader></Loader>}</Button>
+        <Button disabled = {isSubmitting}> {issue? 'Update Issue' : "Submit New Issue" }  { isSubmitting &&  <Loader></Loader>}</Button>
       </form>
     </>
   );
