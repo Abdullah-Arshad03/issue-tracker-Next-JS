@@ -1,6 +1,8 @@
 import prisma from "@/prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { createIssueSchema } from "@/app/validationSchemas";
+import { AuthOptions } from "@/app/auth/AuthOptions";
+import { getServerSession } from "next-auth";
 
 interface Props {
     params : {
@@ -8,6 +10,11 @@ interface Props {
     }
 }
 export async function PUT (request : NextRequest , {params : {id}} : Props){
+    const session = await getServerSession(AuthOptions)
+    if(!session){
+        return NextResponse.json({} , {status : 401}) // 401 unauthorized
+    }
+
 
     // get the issue by id
     // check if issue is there
@@ -50,6 +57,12 @@ export async function PUT (request : NextRequest , {params : {id}} : Props){
 }
 
 export async function DELETE ( request : NextRequest , {params : {id}} : Props){
+    
+    const session = await getServerSession(AuthOptions)
+    if(!session){
+        return NextResponse.json({} , {status : 401}) // 401 unauthorized
+    }
+
 
    
  try {
