@@ -15,7 +15,6 @@ export async function PUT (request : NextRequest , {params : {id}} : Props){
         return NextResponse.json({} , {status : 401}) // 401 unauthorized
     }
 
-
     // get the issue by id
     // check if issue is there
     // if yes update after validating the updated content
