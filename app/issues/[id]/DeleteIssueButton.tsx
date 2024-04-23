@@ -4,24 +4,27 @@ import React, { useState } from "react";
 import { Button, AlertDialog, Flex } from "@radix-ui/themes";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Loader from "@/app/components/Loader";
 
 
 
 
 const DeleteIssueButton = ({ issueId }: { issueId: number } ) => {
   const [error , setError]= useState(false)
+  const [isDeleting , setIsDeleting] = useState(false)
 
   const router  = useRouter()
 
   const onDeleteIssue =  async()=>{
     try {
-    
+     setIsDeleting(true)
       const res = await axios.delete(`http://localhost:3000/api/issues/${issueId}`) 
       console.log('this is the response after deleting' , res)
       router.push('/issues')
       router.refresh()
       
     } catch (error) {
+       setIsDeleting(false)
       setError(true)
     }
     }
@@ -30,7 +33,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number } ) => {
     <>
       <AlertDialog.Root>
         <AlertDialog.Trigger>
-          <Button color="red">Delete Issue</Button>
+          <Button disabled={isDeleting} color="red">Delete Issue {isDeleting && <Loader/>}</Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content>
         <AlertDialog.Title>
