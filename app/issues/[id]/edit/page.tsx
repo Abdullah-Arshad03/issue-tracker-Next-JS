@@ -25,6 +25,7 @@ const EditIssuePage = async({params  : {id}} : Props) => {
   return (
   <>
     <IssueForm issue = {issue} />
+    
 
   </>
   )

@@ -48,3 +48,39 @@ export async function PUT (request : NextRequest , {params : {id}} : Props){
     updatedIssue : updatedIssue
   })
 }
+
+export async function DELETE ( request : NextRequest , {params : {id}} : Props){
+
+   
+ try {
+    
+    const issue = await prisma.issue.findUnique({
+        where : { 
+            id : Number(id)
+        }
+    })
+
+    if( !issue ){
+        return NextResponse.json({error : 'Issue Not found'} , { status : 404})
+    }
+
+  const deletedIssue = await   prisma.issue.delete({
+        where : {
+            id : issue.id
+        }
+    })
+
+    console.log(' this is the delete issue ' , deletedIssue)
+
+    return NextResponse.json({message : "issue is deleted" ,
+        deletedIssue: deletedIssue
+    } , {status : 200})
+
+ } catch (error) {
+    return NextResponse.json({
+        message : 'error in the catch of the deleting func ' ,
+        error : error
+    })
+    
+ }
+}

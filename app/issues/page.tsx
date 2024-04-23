@@ -10,8 +10,7 @@ import StyledLink from "../components/StyledLink";
 
 const IssuesPage = async () => {
   const issues = await prisma.issue.findMany();
- 
-  console.log("these are all issues  : ", issues);
+
 
   return (
     <>
