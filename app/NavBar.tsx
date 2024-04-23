@@ -9,6 +9,7 @@ import {useSession } from 'next-auth/react'
 import { boolean } from 'zod';
 import { Box , Flex , DropdownMenu, Avatar ,Text} from '@radix-ui/themes';
 import { Container } from '@radix-ui/themes';
+import Loader from './components/Loader';
 
 
 const NavBar = () => {
@@ -50,11 +51,18 @@ const NavBar = () => {
 
         </Flex>
         <Box>
+            {status === 'loading' && <Loader/>}
 
 {status === 'authenticated' && ( 
     <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-            <Avatar src={session.user!.image!} fallback="?" size='2' radius='full' className='cursor-pointer'/>
+            <Avatar src={session.user!.image!}
+            fallback="?"
+            size='2'
+            radius='full'
+            className='cursor-pointer'
+            referrerPolicy='no-referrer'
+            />
         </DropdownMenu.Trigger>
         <DropdownMenu.Content>
             <DropdownMenu.Label>
