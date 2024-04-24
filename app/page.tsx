@@ -1,8 +1,9 @@
 import React from 'react'
+import LatestIssues from './LatestIssues'
 
 const Home = () => {
   return (<>
-    <div>Hellow you are in the Dashboard!</div>
+   <LatestIssues/> 
     </>
   )
 }
