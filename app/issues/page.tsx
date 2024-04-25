@@ -1,12 +1,9 @@
-import React from "react";
-import { Button, Table } from "@radix-ui/themes";
-import Link from "next/link";
 import prisma from "@/prisma/client";
-import { Value } from "@radix-ui/themes/src/components/data-list.jsx";
-import IssueStatusBadge from "../components/IssueStatusBadge";
-import IssueActions from "./IssueActions";
-import StyledLink from "../components/StyledLink";
 import { Status } from "@prisma/client";
+import { Table } from "@radix-ui/themes";
+import IssueStatusBadge from "../components/IssueStatusBadge";
+import StyledLink from "../components/StyledLink";
+import IssueActions from "./IssueActions";
 
 interface Props {
   searchParams :{
@@ -16,13 +13,18 @@ interface Props {
 const IssuesPage = async ({searchParams : {status}} : Props) => {
 
 
-  const statuses = Object.values(status)
-  const checkStatus = statuses.includes(status) ? status : undefined
-  const issues = await prisma.issue.findMany({
-    where : {
-      status  : checkStatus
-    }
-  });
+ const statuses = ["OPEN" , "IN_PROGRESS" , "CLOSED"]
+ const checkStatus = statuses.includes(status) ? status : undefined
+ console.log('this is the checkStatus ' , checkStatus)
+
+ const issues = await prisma.issue.findMany({
+   where : {
+     status  : checkStatus
+   }
+ });
+
+
+
 
 
   return (
@@ -42,7 +44,7 @@ const IssuesPage = async ({searchParams : {status}} : Props) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {issues.map((issue) => (
+          {   issues.map((issue) => (
             <>
               <Table.Row key={issue.id}>
                 <Table.Cell>

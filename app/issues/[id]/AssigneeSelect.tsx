@@ -35,15 +35,18 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
         onValueChange={async (userId) => {
           try {
             if (userId !== "null") {
-              axios.put(`http://localhost:3000/api/issues/` + issue.id, {
+              const res = await axios.put(`http://localhost:3000/api/issues/` + issue.id, {
                 assignedToUserId: userId,
               });
-            }
+            console.log("this is the res", res);
+
+            }else{
             const res = await axios.put(
               `http://localhost:3000/api/issues/` + issue.id,
               { assignedToUserId: null }
             );
             console.log("this is the res", res);
+          }
           } catch (error) {
             console.log(" the user aint assigned!", error);
           }

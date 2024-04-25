@@ -11,6 +11,7 @@ import { Box, Flex, DropdownMenu, Avatar, Text } from "@radix-ui/themes";
 import { Container } from "@radix-ui/themes";
 import Loader from "./components/Loader";
 
+
 const NavBar = () => {
   const currentPath = usePathname();
   console.log(currentPath);
@@ -32,11 +33,11 @@ const NavBar = () => {
       <nav className="flex space-x-8 border-b mb-5 px-6 py-4  items-center">
         <Container>
           <Flex justify="between">
-            <Flex align="center" gap="3">
+            <Flex align="center" gap="9">
               <Link href="">
                 <FaBug />{" "}
               </Link>
-              <ul className="flex space-x-6 ">
+              <ul className="flex space-x-8 ">
                 {links.map((link) => (
                   <>
                     <li key={link.href}>
