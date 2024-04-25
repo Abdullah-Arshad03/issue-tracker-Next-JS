@@ -27,6 +27,7 @@ interface Props {
 const IssueStatusBadge = ( {status} : Props) => {
   return (
      <>
+     
      {status === 'OPEN' && <Badge color='red'>Open</Badge>}
      {status === 'IN_PROGRESS' && <Badge color='violet'>In Progress</Badge>}
      {status === 'CLOSED' && <Badge color='green'>Close</Badge>}

@@ -13,6 +13,7 @@ const LatestIssues = async() => {
         include : {
             assignedToUser : true
         } // taking top 5 records
+        
     })
   return (
     <Card>

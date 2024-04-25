@@ -1,20 +1,19 @@
 "use client";
-import { Button, TextField, Text } from "@radix-ui/themes";
-import React from "react";
-import "easymde/dist/easymde.min.css";
-import { useState, useCallback } from "react";
-import { useForm, Controller } from "react-hook-form";
-import axios from "axios";
-import Router, { useRouter } from "next/navigation";
-import { Callout } from "@radix-ui/themes";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { createIssueSchema } from "../../validationSchemas";
-import { z } from "zod";
+
 import ErrorMessage from "@/app/components/ErrorMessage";
 import Loader from "@/app/components/Loader";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Issue } from "@prisma/client";
+import { Button, Callout, Text, TextField } from "@radix-ui/themes";
+import axios from "axios";
+import "easymde/dist/easymde.min.css";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { z } from "zod";
+import { createIssueSchema } from "../../validationSchemas";
 // import dynamic from "next/dynamic";
-import SimpleMdeReact from 'react-simplemde-editor'
+import SimpleMdeReact from 'react-simplemde-editor';
 
 // it is the lazy loading, means the simpleReact will only load when it should be requied on the screen,
 // ssr : flase means the server side rendering of this component is off, it will not be included in the initial bundle when rendering the component,

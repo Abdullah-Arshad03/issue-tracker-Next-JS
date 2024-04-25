@@ -4,6 +4,7 @@ import { Table } from "@radix-ui/themes";
 import IssueStatusBadge from "../components/IssueStatusBadge";
 import StyledLink from "../components/StyledLink";
 import IssueActions from "./IssueActions";
+import { Metadata } from "next";
 
 interface Props {
   searchParams :{
@@ -22,10 +23,6 @@ const IssuesPage = async ({searchParams : {status}} : Props) => {
      status  : checkStatus
    }
  });
-
-
-
-
 
   return (
     <>
@@ -57,7 +54,7 @@ const IssuesPage = async ({searchParams : {status}} : Props) => {
                   <IssueStatusBadge status={issue.status} />
                 </Table.Cell>
                 <Table.Cell className="hidden md:table-cell">
-                  {issue.createdAt.toDateString()}
+                 {issue.createdAt ? issue.createdAt.toDateString() : ''}
                 </Table.Cell>
               </Table.Row>
             </>
@@ -68,7 +65,12 @@ const IssuesPage = async ({searchParams : {status}} : Props) => {
   );
 };
 
-// export const dynamic = 'force-dynamic'
-// export const revalidate = 0
+export const dynamic = 'force-dynamic'
+
+export const metadata:Metadata = {
+  title : 'Issue Tracker - Issue List' , 
+  description : 'View all project issues'
+}
 
 export default IssuesPage;
+ 

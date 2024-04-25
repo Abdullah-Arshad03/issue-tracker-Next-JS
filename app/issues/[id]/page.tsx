@@ -8,15 +8,19 @@ import { getServerSession } from "next-auth";
 import { AuthOptions } from "@/app/auth/AuthOptions";
 import AssigneeSelect from "./AssigneeSelect";
 
+import { cache } from "react";
 
 interface Props {
   params: { id: string };
 }
+
+const fetchIssue = cache((issueId: number)=>  prisma.issue.findUnique({where : {id : issueId}})
+)
+
+
 const IssuesDetailPage = async ({ params: { id } }: Props) => {
  const session = await getServerSession(AuthOptions)
-  const issue = await prisma.issue.findUnique({
-    where: { id: Number(id) },
-  });
+  const issue = await fetchIssue(Number(id))
 
   if (!issue) {
     notFound();
@@ -39,5 +43,18 @@ const IssuesDetailPage = async ({ params: { id } }: Props) => {
     </Grid>
   );
 };
+
+// here we have to generate the dynamic meta data based on the issue
+// we are using prisma for two times for generating all the data here.
+
+export async function generateMetadata ({params : {id}} : Props){ 
+ const issue = await fetchIssue(Number(id))
+
+
+ return{
+  title : issue?.title ,
+  description : 'Details of Issue' + issue?.id
+ }
+} 
 
 export default IssuesDetailPage;
