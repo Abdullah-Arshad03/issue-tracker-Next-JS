@@ -17,7 +17,9 @@ const NavBar = () => {
   console.log(currentPath);
   const { status, data: session } = useSession();
   console.log("this is the status of the user : ", status);
+  console.log("this is the status of the user : ", session);
 
+  
   const links = [
     {
       label: "Dashboard",
@@ -83,6 +85,7 @@ const NavBar = () => {
                   </DropdownMenu.Content>
                 </DropdownMenu.Root>
               )}
+
               {status === "unauthenticated" && (
                 <Link href="/api/auth/signin">Login</Link>
               )}
