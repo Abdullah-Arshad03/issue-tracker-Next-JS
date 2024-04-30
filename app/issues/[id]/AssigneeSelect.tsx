@@ -7,6 +7,7 @@ import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "@/app/components/Loader";
 import { undefined } from "zod";
+import {toast , Toaster} from 'react-hot-toast'
 
 const AssigneeSelect = ({ issue }: { issue: Issue }) => {
   const { data, error, isLoading } = useQuery<User[]>({
@@ -30,6 +31,7 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
 
   return (
     <>
+    <Toaster/>
       <Select.Root
       defaultValue={issue.assignedToUserId || "null"}
         onValueChange={async (userId) => {
@@ -38,17 +40,17 @@ const AssigneeSelect = ({ issue }: { issue: Issue }) => {
               const res = await axios.put(`http://localhost:3000/api/issues/` + issue.id, {
                 assignedToUserId: userId,
               });
-            console.log("this is the res", res);
-
+           toast.success('user assigned')
             }else{
             const res = await axios.put(
               `http://localhost:3000/api/issues/` + issue.id,
               { assignedToUserId: null }
             );
-            console.log("this is the res", res);
+           toast.success('user Unassigned')
+
           }
           } catch (error) {
-            console.log(" the user aint assigned!", error);
+            toast.error('user aint assinged')
           }
         }}
       >

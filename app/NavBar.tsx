@@ -19,7 +19,6 @@ const NavBar = () => {
   console.log("this is the status of the user : ", status);
   console.log("this is the status of the user : ", session);
 
-  
   const links = [
     {
       label: "Dashboard",
