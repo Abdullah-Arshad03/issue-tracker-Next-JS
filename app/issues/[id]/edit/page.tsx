@@ -15,7 +15,6 @@ interface Props {
     id : string
    }
 }
-
 const EditIssuePage = async({params  : {id}} : Props) => {
 
    const issue = await prisma.issue.findUnique({
@@ -25,8 +24,6 @@ const EditIssuePage = async({params  : {id}} : Props) => {
   return (
   <>
     <IssueForm issue = {issue} />
-    
-
   </>
   )
 }
