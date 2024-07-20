@@ -36,7 +36,7 @@ const DeleteIssueButton = ({ issueId }: { issueId: number } ) => {
           <Button disabled={isDeleting} color="red">Delete Issue {isDeleting && <Loader/>}</Button>
         </AlertDialog.Trigger>
         <AlertDialog.Content>
-        <AlertDialog.Title>
+        <AlertDialog.Title> 
           Confirm Deletion
         </AlertDialog.Title>
         <AlertDialog.Description>
